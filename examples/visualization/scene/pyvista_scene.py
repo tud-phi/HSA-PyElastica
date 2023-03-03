@@ -256,7 +256,7 @@ class PyvistaScene(BaseScene):
             ambient=0.5,
             label_size=(0.25, 0.1),
         )
-        _ = self.pl.add_axes(line_width=10, marker_args=marker_args, color="black")
+        _ = self.pl.add_axes(line_width=10, color="black", **marker_args)
 
         # add floor
         # floor = pl.add_floor(face='-z', opacity=0.5, lighting=True, pad=10.0)
