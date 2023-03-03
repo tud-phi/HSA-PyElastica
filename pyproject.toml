@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hsa-pyelastica"
+description="A plugin to PyElastica for the simulation of robots based on Handed Shearing Auxetics (HSAs)."
+version = "0.0.1"
+authors = [
+    { name = "Maximilian Stölzle", email = "maximilian@stoelzle.ch"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+    "progressbar2",
+    "pyelastica == 0.3.0",
+    "PyYAML",
+    "requests",
+]
+license = {text = "MIT"}
+classifiers = [  # Optional
+        # How mature is this project? Common values are
+        #   3 - Alpha
+        #   4 - Beta
+        #   5 - Production/Stable
+        'Development Status :: 3 - Alpha',
+
+        # Indicate who your project is intended for
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
+
+        # Pick your license as you wish
+        'License :: OSI Approved :: MIT License',
+
+        # Specify the Python versions you support here. In particular, ensure
+        # that you indicate you support Python 3. These classifiers are *not*
+        # checked by 'pip install'. See instead 'python_requires' below.
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "bump2version",
+    "codecov",
+    "coverage",
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "pytest-html",
+    "tox",
+]
+examples = [
+    "matplotlib",
+    "pycairo",
+    "pyvista",
+    "seaborn",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/tud-cor-sr/HSA-PyElastica"
+"Bug Tracker" = "https://github.com/tud-cor-sr/HSA-PyElastica/issues"
+
+[tool.black]
+# https://github.com/psf/black
+target-version = ["py38", "py39", "py310", "py311"]
+line-length = 88
+color = true
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | env
+    | venv
+)/
+'''
