@@ -105,12 +105,10 @@ class HsaRobotSimulator(
 
         now = datetime.now()  # current date and time
         self.sim_id = f"{self.name}-{now.strftime('%Y%m%d_%H%M%S')}"
-        if log_dir is None:
-            self.log_dir = Path("logs") / self.sim_id
-        else:
-            self.log_dir = Path(log_dir)
-        # Create logdir if it doesn't exist yet
-        self.log_dir.mkdir(parents=True, exist_ok=True)
+        self.log_dir = Path(log_dir)
+        if self.log_dir is not None:
+            # Create logdir if it doesn't exist yet
+            self.log_dir.mkdir(parents=True, exist_ok=True)
 
     def configure(
         self,
@@ -390,7 +388,6 @@ class HsaRobotSimulator(
                 self.collect_diagnostics(rod).using(
                     HsaRodDiagnosticCallback,
                     callback_data=self.diagnostic_data_raw[i - 1]["rods"][j],
-                    # export_path=str(self.log_dir / f"s-{i}" / f"rod-{j}" / "diagnostic_data_raw"),
                     **diagnostic_params,
                 )
 
@@ -398,7 +395,6 @@ class HsaRobotSimulator(
             self.collect_diagnostics(segment["platform"]).using(
                 HsaRigidBodyDiagnosticCallback,
                 callback_data=self.diagnostic_data_raw[i - 1]["platform"],
-                # export_path=str(self.log_dir / f"s-{i}" / "platform" / "diagnostic_data_raw"),
                 **diagnostic_params,
             )
 
@@ -406,9 +402,10 @@ class HsaRobotSimulator(
         """
         Run the simulation
         """
-        # save robot params as yaml file
-        with open(str(self.log_dir / "robot_params.yaml"), "w+") as file:
-            yaml.dump(self.robot_params, file)
+        if self.log_dir is not None:
+            # save robot params as yaml file
+            with open(str(self.log_dir / "robot_params.yaml"), "w+") as file:
+                yaml.dump(self.robot_params, file)
 
         integrate(self.timestepper, self, self.duration, self.total_steps)
 
@@ -487,6 +484,8 @@ class HsaRobotSimulator(
         """
         Save diagnostic data to disk at self.log_dir
         """
+        assert self.log_dir is not None, "Diagnostic data can only be saved if `log_dir` attribute is set."
+
         print("Saving diagnostic data to:", self.log_dir)
         with open(str(self.log_dir / "diagnostic_data.pkl"), "wb") as f:
             pickle.dump(self.diagnostic_data, f)

@@ -3,6 +3,7 @@ from hsa_elastica.utils.data_mapping_utils import (
 )
 import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
 from scipy.spatial.transform import Rotation
 from typing import Dict
 import yaml
@@ -284,7 +285,7 @@ def plot_platform_external_torques(_platform_diagnostic_arrays: Dict):
 
 
 if __name__ == "__main__":
-    log_dir = f"logs/{sim_id}"
+    log_dir = f"examples/logs/{sim_id}"
     with open(f"{log_dir}/robot_params.yaml", "r") as file:
         robot_params = yaml.safe_load(file)
     rod_diagnostic_arrays = np.load(f"{log_dir}/rod_diagnostic_arrays.npz")
@@ -315,6 +316,14 @@ if __name__ == "__main__":
         rod_diagnostic_arrays, platform_diagnostic_arrays
     )
 
+    # plt_scene = MatplotlibScene(robot_params=robot_params)
+    # plt_scene.animate(
+    #     rod_diagnostic_arrays=rod_diagnostic_arrays,
+    #     platform_diagnostic_arrays=platform_diagnostic_arrays,
+    #     filepath=f"examples/videos/{sim_id}_plt.mp4",
+    #     fps=fps,
+    # )
+
     pv_scene = PyvistaScene(
         robot_params=robot_params,
         gt_settings=dict(
@@ -328,18 +337,10 @@ if __name__ == "__main__":
     )
     pv_scene.run(T_rod_ts[-1], T_platform_ts[-1])
 
-    plt_scene = MatplotlibScene(robot_params=robot_params)
-    plt_scene.animate(
-        rod_diagnostic_arrays=rod_diagnostic_arrays,
-        platform_diagnostic_arrays=platform_diagnostic_arrays,
-        filepath=f"videos/{sim_id}_plt.mp4",
-        fps=fps,
-    )
-
     pv_scene.animate(
         T_rod_gt_ts=T_rod_ts,
         T_platform_gt_ts=T_platform_ts,
-        filepath=f"videos/{sim_id}_pv.mp4",
+        filepath=f"examples/videos/{sim_id}_pv.mp4",
         sample_rate=fps,
         frame_rate=20,
     )

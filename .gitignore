@@ -130,9 +130,3 @@ dmypy.json
 
 # JetBrains
 .idea
-
-# custom project folders
-data
-log
-logs
-videos
