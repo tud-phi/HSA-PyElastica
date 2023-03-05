@@ -10,7 +10,6 @@ def construct_robot_params(num_segments: int, segment_params: Dict) -> Dict:
         "L0": 0.0,
     }
     for i in range(1, num_segments + 1):
-        robot_params["segment_idx"] = i
         robot_params["segments"].append(segment_params.copy())
         robot_params["L0"] += segment_params["L0"]
 
