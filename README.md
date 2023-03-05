@@ -139,8 +139,10 @@ sigma = sim.diagnostic_data["sigma"]
 The `HsaRobotSimulator` can be used to simulate the behaviour of robots consisting of multiple HSAs in parallel configuration.
 
 ```python
+from datetime import datetime
 from hsa_elastica import HsaRobotSimulator
 import numpy as np
+from pathlib import Path
 
 from examples.hsa_robot.actuation_utils import (
     platform_configuration_to_actuation_angles,
@@ -203,12 +205,18 @@ robot_params = dict(
     segments=[segment_params],
 )
 
+# define logging directory
+now = datetime.now()  # current date and time
+sim_id = f"motion_primitives_{MODE}-{now.strftime('%Y%m%d_%H%M%S')}"
+log_dir = f"examples/logs/hsa_robot/{sim_id}"
+print("Logging simulation data to: ", Path(log_dir).resolve())
+
 sim = HsaRobotSimulator(
-    name=f"motion_primitives_{MODE}",
     robot_params=robot_params,
     duration=15.0,
     dt=4e-5,
     fps=100,
+    log_dir=log_dir,
 )
 
 # do not finalize the simulator yet
@@ -257,6 +265,45 @@ sim.finalize()
 sim.run()
 # save the diagnostic data to
 sim.save_diagnostic_data()
+
+rod_diagnostic_arrays = sim.rod_diagnostic_arrays
+platform_diagnostic_arrays = sim.platform_diagnostic_arrays
+
+# array of shape (num_frames, num_segments, num_rods), 
+# where num_frames is the number of frames stored during the simulation
+# num_rods is the number of HSAs per segment
+# num_frames = duration * fps
+rod_time = rod_diagnostic_arrays["time"]
+# positions of nodes
+# array of shape (num_frames, num_segments, num_rods, 3, num_elements + 1)
+# num_elements is the number of links per HSA
+rod_position = rod_diagnostic_arrays["position"]
+# directors of the links
+# array of shape (num_frames, num_segments, num_rods, 3, 3, num_elements)
+rod_director = rod_diagnostic_arrays["director"]
+
+# for the diagnostic arrays, we follow the same convention as above for all other data structures
+# such as the rotational strains (kappa), the axial strain (sigma), 
+# the linear velocities (velocity), the angular velocities (omega) etc.
+
+# position of the center of mass of the platform
+# array of shape (num_frames, num_segments, 3, 1)
+platform_position = platform_diagnostic_arrays["position"]
+# directors of the platform
+# array of shape (num_frames, num_segments, 3, 3, 1)
+platform_directors = platform_diagnostic_arrays["directors"]
+# linear velocity of the center of mass of the platform
+# array of shape (num_frames, num_segments, 3, 1)
+platform_velocity = platform_diagnostic_arrays["velocity"]
+# angular velocity of the center of mass of the platform
+# array of shape (num_frames, num_segments, 3, 1)
+omega = platform_diagnostic_arrays["omega"]
+# external forces acting on the center of mass of the platform
+# array of shape (num_frames, num_segments, 3, 1)
+platform_external_forces = platform_diagnostic_arrays["external_forces"]
+# external torques acting on the center of mass of the platform
+# array of shape (num_frames, num_segments, 3, 1)
+platform_external_torques = platform_diagnostic_arrays["external_torques"]
 ```
 
 ## Getting started

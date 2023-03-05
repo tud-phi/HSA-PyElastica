@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-from .actuation_utils import generate_actuation_samples
+from examples.hsa_robot.actuation_utils import generate_actuation_samples
 from examples.parameters.robot_params import ONE_SEGMENT_ROBOT
 from examples.visualization.scene import MatplotlibScene
 
@@ -21,7 +21,7 @@ now = datetime.now()  # current date and time
 dataset_name = (
     f"{now.strftime('%Y%m%d_%H%M%S')}_{mode}_seed-{seed}_{num_samples}-samples"
 )
-dataset_dir = Path(f"data/hsa_robot/kinematic_steady_state_datasets/{dataset_name}")
+dataset_dir = Path(f"examples/logs/hsa_robot/kinematic_steady_state_datasets/{dataset_name}")
 
 
 if __name__ == "__main__":
@@ -57,7 +57,6 @@ if __name__ == "__main__":
         )
         sample_dir = dataset_dir / sample_name
         sim = HsaRobotSimulator(
-            name=sample_name,
             robot_params=robot_params,
             duration=15.0,
             dt=4e-5,

@@ -1,7 +1,7 @@
+from datetime import datetime
 from hsa_elastica import HsaRobotSimulator
-import matplotlib.pyplot as plt
 import numpy as np
-from typing import Dict
+from pathlib import Path
 
 from examples.hsa_robot.actuation_utils import (
     platform_configuration_to_actuation_angles,
@@ -19,12 +19,18 @@ max_actuation_angle = 179.9 / 180 * np.pi  # [rad]
 
 if __name__ == "__main__":
     robot_params = ONE_SEGMENT_ROBOT
+
+    now = datetime.now()  # current date and time
+    sim_id = f"motion_primitives_{MODE}-{now.strftime('%Y%m%d_%H%M%S')}"
+    log_dir = f"examples/logs/hsa_robot/{sim_id}"
+    print("Logging simulation data to: ", Path(log_dir).resolve())
+
     sim = HsaRobotSimulator(
-        name=f"motion_primitives_{MODE}",
         robot_params=robot_params,
         duration=15.0,
         dt=4e-5,
         fps=100,
+        log_dir=log_dir,
     )
     sim.configure(finalize=False, add_constraints=False)
 

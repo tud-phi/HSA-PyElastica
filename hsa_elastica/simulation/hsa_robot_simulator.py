@@ -1,6 +1,5 @@
 from collections import defaultdict
 from copy import deepcopy
-from datetime import datetime
 from elastica.dissipation import AnalyticalLinearDamper
 from elastica.experimental.connection_contact_joint.generic_system_type_connection import (
     GenericSystemTypeFixedJoint,
@@ -45,7 +44,6 @@ class HsaRobotSimulator(
 
     def __init__(
         self,
-        name: str,
         robot_params: Dict,
         duration: float = 10.0,
         dt: float = 5e-5,
@@ -70,7 +68,6 @@ class HsaRobotSimulator(
         """
         super().__init__()
 
-        self.name = name
         self.robot_params = robot_params
         self.num_segments = len(self.robot_params["segments"])
         self.num_rods_per_segment = self.robot_params["num_rods_per_segment"]
@@ -103,12 +100,12 @@ class HsaRobotSimulator(
         # where ... are the dimensions of the state
         self.platform_diagnostic_arrays: Dict[str, np.array] = {}
 
-        now = datetime.now()  # current date and time
-        self.sim_id = f"{self.name}-{now.strftime('%Y%m%d_%H%M%S')}"
-        self.log_dir = Path(log_dir)
-        if self.log_dir is not None:
+        if log_dir is not None:
+            self.log_dir = Path(log_dir)
             # Create logdir if it doesn't exist yet
             self.log_dir.mkdir(parents=True, exist_ok=True)
+        else:
+            self.log_dir = log_dir
 
     def configure(
         self,

@@ -20,6 +20,7 @@ plt.rcParams.update(
 )
 
 sim_id = "motion_primitives_elongation-20221025_093020"
+sim_id = "motion_primitives_elongation-20230303_183612"
 # sim_id = "motion_primitives_bending-north-20221025_121420"
 # sim_id = "motion_primitives_bending-south-20221025_122510"
 # sim_id = "motion_primitives_bending-east-20221025_122602"
