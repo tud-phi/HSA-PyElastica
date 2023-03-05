@@ -85,6 +85,7 @@ class HsaBaseDiagnosticCallback(ExportCallBack):
         self.callback_data["position"].append(system.position_collection.copy())
         self.callback_data["directors"].append(system.director_collection.copy())
         self.callback_data["velocity"].append(system.velocity_collection.copy())
+        self.callback_data["omega"].append(system.omega_collection.copy())
         self.callback_data["external_forces"].append(system.external_forces.copy())
         self.callback_data["external_torques"].append(system.external_torques.copy())
 
