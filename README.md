@@ -26,7 +26,7 @@ joints, etc.
 This simulator is part of the publication **Modelling Handed Shearing Auxetics:
 Selective Piecewise Constant Strain Kinematics and Dynamic Simulation** presented at the 
 _6th IEEE-RAS International Conference on Soft Robotics (RoboSoft 2023)_. 
-You can find the publication online on ~~IEEE Xplore~~.
+You can find the publication online on [IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/10121989/).
 
 Please use the following citation if you use our method in your (scientific) work:
 
