@@ -365,11 +365,11 @@ at steady-state and evaluate the accuracy of the reconstructed shape. The result
 
 You might also be interested in the following repositories:
 
- - The [`jax-spcs-kinematics`](https://github.com/tud-cor-sr/jax-spcs-kinematics) repository contains an implementation
+ - The [`jax-spcs-kinematics`](https://github.com/tud-phi/jax-spcs-kinematics) repository contains an implementation
  of the Selective Piecewise Constant Strain (SPCS) kinematics in JAX. We have shown in our paper that this kinematic 
 model is suitable for representing the shape of HSA rods.
  - You can find code and datasets used for the verification of the SPCS model for HSA robots in the 
-[`hsa-kinematic-model`](https://github.com/tud-cor-sr/hsa-kinematic-model) repository.
+[`hsa-kinematic-model`](https://github.com/tud-phi/hsa-kinematic-model) repository.
 
 ## References
 <a id="1">[1]</a> Good, Ian, et al. 
