@@ -9,7 +9,7 @@ This will let the rod extend when torsional torques are applied to it.
 Additionally, the axial stiffness of the rod is modelled to be a linear function of the twist strain to account for a proportional 
 increase of the spring constant with increasing twist angles, as shown by Good et al. [[1]](#1) in their characterization 
 of the mechanical properties of HSAs.
-We refer to the [publication](##Citation) for more details.
+We refer to the [publication](https://doi.org/10.1109/RoboSoft55895.2023.10121989) for more details.
 
 Currently, we are able to simulate the behaviour of closed HSAs
 (i.e. the printed length is equal to the minimum length). Adaptations would be necessary to accommodate the simulation of 
@@ -26,7 +26,7 @@ joints, etc.
 This simulator is part of the publication **Modelling Handed Shearing Auxetics:
 Selective Piecewise Constant Strain Kinematics and Dynamic Simulation** presented at the 
 _6th IEEE-RAS International Conference on Soft Robotics (RoboSoft 2023)_. 
-You can find the publication online on [IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/10121989/).
+You can find the publication online on [IEEE Xplore](https://doi.org/10.1109/RoboSoft55895.2023.10121989).
 
 Please use the following citation if you use our method in your (scientific) work:
 
